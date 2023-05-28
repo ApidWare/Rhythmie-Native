@@ -1,5 +1,6 @@
 import React from 'react';
 import {ScrollView, Text, View} from 'react-native';
+import Navbar from "../bottomNavComponents/Navbar";
 
 function MostPopular() {
   const styles = {

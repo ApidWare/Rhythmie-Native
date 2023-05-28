@@ -1,28 +1,29 @@
 import React from 'react';
-import {View} from 'react-native';
-import Homepage from './homeComponents/Homepage';
+import { View } from 'react-native';
+import Homepage from '../screens/Homepage';
 import Topbar from './homeComponents/Topbar';
 import Navbar from './bottomNavComponents/Navbar';
 import MiniPlayer from './bottomControls/MiniPlayer';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Explore from '../screens/Explore';
+
+const Stack = createNativeStackNavigator();
 
 function MainComponent() {
-  const styles = {
-    mainComponent: {
-      backgroundColor: '#181818',
-      height: '92%',
-      position: 'relative',
-      top: -30,
-      borderTopLeftRadius: 30,
-      borderTopRightRadius: 30,
-    },
-  };
-
   return (
-    <View style={styles.mainComponent}>
-      <Navbar />
-      <Homepage />
-      <MiniPlayer />
-    </View>
+    <NavigationContainer>
+      <View style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+          <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
+            <Stack.Screen name="Home" component={Homepage} />
+            <Stack.Screen name="Explore" component={Explore} />
+          </Stack.Navigator>
+        </View>
+        <Topbar />
+      </View>
+    </NavigationContainer>
   );
 }
+
 export default MainComponent;

@@ -1,21 +1,27 @@
 import React from 'react';
-import { Image, Text, View } from "react-native";
+import {Image, Pressable, Text, View} from 'react-native';
 import home from '../../resources/home.png';
 import explore from '../../resources/search.png';
 import mv from '../../resources/video.png';
 import library from '../../resources/account.png';
+import {useNavigation} from '@react-navigation/native';
 
 function Navbar() {
+  const navigation = useNavigation();
+
+  const handleNavigate = screenName => {
+    navigation.navigate(screenName);
+  };
+
   const styles = {
     navbarContainer: {
       display: 'flex',
       flexDirection: 'row',
       position: 'absolute',
-      bottom: 25,
+      bottom: 12,
       left: 30,
-      justifyContent: 'center',
       zIndex: 3,
-      backgroundColor: 'rgba(0,0,0,0.27)',
+      backgroundColor: 'rgba(26,26,26,0.84)',
       borderRadius: 20,
       padding: 10,
     },
@@ -51,16 +57,24 @@ function Navbar() {
     },
   };
 
+  // const navPressHandler = () => {
+  //
+  // }
+
   return (
     <View style={styles.navbarContainer}>
       {/*<Text style={styles.navbarOption}>Home</Text>*/}
-      <View style={styles.activeOption}>
-        <Image style={styles.homeIcon} source={home} />
-      </View>
+      <Pressable onPress={() => handleNavigate('Home')}>
+        <View style={styles.activeOption}>
+          <Image style={styles.homeIcon} source={home} />
+        </View>
+      </Pressable>
       {/*<View style={styles.activeOption}>*/}
       {/*  <Image style={styles.homeIcon} source={explore} />*/}
       {/*</View>*/}
-      <Text style={styles.navbarOption}>Explore</Text>
+      <Pressable onPress={() => handleNavigate('Explore')}>
+        <Text style={styles.navbarOption}>Explore</Text>
+      </Pressable>
       {/*<View style={styles.activeOption}>*/}
       {/*  <Image style={styles.homeIcon} source={mv} />*/}
       {/*</View>*/}
