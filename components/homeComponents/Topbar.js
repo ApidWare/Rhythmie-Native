@@ -13,7 +13,7 @@ function Topbar() {
       color: '#fff',
       fontSize: 25,
       textAlign: 'center',
-      paddingTop: 20,
+      paddingTop: 42,
       position: 'absolute',
       bottom: 0,
       zIndex: 0,
