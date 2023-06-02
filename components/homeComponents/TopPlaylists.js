@@ -1,33 +1,42 @@
 import React from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import {Image, ScrollView, Text, View} from 'react-native';
 
-function TopPlaylists() {
+function TopPlaylists(props) {
   const styles = {
     lastPlayed: {
-      backgroundColor: '#222',
-      borderRadius: 20,
-      width: 120,
-      height: 120,
       marginRight: 20,
-      paddingBottom: 100,
+      paddingBottom: 10,
     },
     lastPlayedText: {
       color: '#fff',
-      fontFamily: 'Raleway-Regular',
-      fontSize: 16,
+      fontFamily: 'Raleway-SemiBold',
+      fontSize: 18,
       paddingLeft: 4,
       marginTop: 20,
     },
     artContainer: {
-      height: 45,
-      width: 45,
-      // backgroundColor:
-      // borderRadius: 50,
+      backgroundColor: '#222',
+      borderRadius: 15,
+      width: 120,
+      height: 120,
+      overflow: 'hidden',
     },
     lastPlayedContainer: {
-      display: 'flex',
-      flexDirection: 'row',
       marginTop: 20,
+    },
+    image: {
+      height: '100%',
+      width: '100%',
+    },
+    playlistTitle: {
+      width: 120,
+      paddingTop: 5,
+    },
+    playlistTitleText: {
+      color: '#fff',
+      fontSize: 10,
+      textAlign: 'center',
+      fontFamily: 'Raleway-Regular',
     },
   };
 
@@ -38,18 +47,24 @@ function TopPlaylists() {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         style={styles.lastPlayedContainer}>
-        <View style={styles.lastPlayed}>
-          <View style={styles.artContainer} />
-        </View>
-        <View style={styles.lastPlayed}>
-          <View style={styles.artContainer} />
-        </View>
-        <View style={styles.lastPlayed}>
-          <View style={styles.artContainer} />
-        </View>
-        <View style={styles.lastPlayed}>
-          <View style={styles.artContainer} />
-        </View>
+        {props.homepageData.playlists.map(element => {
+          return (
+            <View key={element.key} style={styles.lastPlayed}>
+              <View key={element.key} style={styles.artContainer}>
+                <Image
+                  key={element.key}
+                  style={styles.image}
+                  source={{uri: element.image[1].link}}
+                />
+              </View>
+              <View key={element.key} style={styles.playlistTitle}>
+                <Text key={element.key} style={styles.playlistTitleText}>
+                  {element.title}
+                </Text>
+              </View>
+            </View>
+          );
+        })}
       </ScrollView>
     </>
   );

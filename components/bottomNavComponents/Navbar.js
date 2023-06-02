@@ -1,5 +1,5 @@
-import React from 'react';
-import {Image, Pressable, Text, View} from 'react-native';
+import React, {useState, useRef} from 'react';
+import {Image, Pressable, Text, View, StyleSheet, Animated} from 'react-native';
 import home from '../../resources/home.png';
 import explore from '../../resources/search.png';
 import mv from '../../resources/video.png';
@@ -8,82 +8,166 @@ import {useNavigation} from '@react-navigation/native';
 
 function Navbar() {
   const navigation = useNavigation();
+  const [activeOption, setActiveLink] = useState('Home');
+  const animationValue = useRef(new Animated.Value(1)).current;
 
   const handleNavigate = screenName => {
     navigation.navigate(screenName);
+    setActiveLink(screenName);
   };
 
-  const styles = {
+  const animateButton = () => {
+    Animated.sequence([
+      Animated.timing(animationValue, {
+        toValue: 0.8,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(animationValue, {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const animatedStyle = {
+    transform: [{scale: animationValue}],
+  };
+
+  const styles = StyleSheet.create({
     navbarContainer: {
       display: 'flex',
       flexDirection: 'row',
       position: 'absolute',
-      bottom: 12,
-      left: 30,
+      bottom: 105,
+      left: 45,
       zIndex: 3,
-      backgroundColor: 'rgba(26,26,26,0.84)',
+      backgroundColor: 'rgba(26,26,26,0.95)',
       borderRadius: 20,
-      padding: 10,
+      height: 60,
+      width: 320,
     },
     navbarOption: {
-      marginRight: 10,
-      marginLeft: 10,
+      // marginRight: 5,
+      // marginLeft: 5,
       color: '#fff',
       fontFamily: 'JosefinSans-Light',
       fontSize: 18,
-      // paddingLeft: 5,
-      // paddingRight: 5,
-      padding: 10,
+      marginBottom: -4,
     },
     activeOption: {
-      marginRight: 10,
-      marginLeft: 10,
+      // marginRight: 10,
+      // marginLeft: 10,
       color: '#fff',
-      // paddingBottom: 5,
-      // paddingLeft: 5,
-      // paddingRight: 5,
-      padding: 10,
       borderRadius: 12,
       backgroundColor: '#333',
-      // borderBottomWidth: 1,
-      // borderBottomStyle: 'solid',
-      // borderBottomColor: '#fff',
-      // borderBottomLeftRadius: 5,
-      // borderBottomRightRadius: 5,
+      padding: 10,
+      marginBottom: -10,
     },
     homeIcon: {
       width: 24,
       height: 24,
     },
-  };
-
-  // const navPressHandler = () => {
-  //
-  // }
+    pressable: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 50,
+      width: '22%',
+      marginLeft: 7,
+    },
+    animatedButton: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  });
 
   return (
     <View style={styles.navbarContainer}>
-      {/*<Text style={styles.navbarOption}>Home</Text>*/}
-      <Pressable onPress={() => handleNavigate('Home')}>
-        <View style={styles.activeOption}>
-          <Image style={styles.homeIcon} source={home} />
-        </View>
+      <Pressable
+        onPress={() => {
+          handleNavigate('Home');
+          animateButton();
+        }}
+        style={styles.pressable}>
+        <Animated.View
+          style={[
+            styles.navbarOption,
+            activeOption === 'Home' && styles.activeOption,
+            animatedStyle, // Apply the animated style
+          ]}>
+          {activeOption === 'Home' && (
+            <Image style={styles.homeIcon} source={home} />
+          )}
+          {activeOption !== 'Home' && (
+            <Text style={styles.navbarOption}>Home</Text>
+          )}
+        </Animated.View>
       </Pressable>
-      {/*<View style={styles.activeOption}>*/}
-      {/*  <Image style={styles.homeIcon} source={explore} />*/}
-      {/*</View>*/}
-      <Pressable onPress={() => handleNavigate('Explore')}>
-        <Text style={styles.navbarOption}>Explore</Text>
+      <Pressable
+        onPress={() => {
+          handleNavigate('Explore');
+          animateButton();
+        }}
+        style={styles.pressable}>
+        <Animated.View
+          style={[
+            styles.navbarOption,
+            activeOption === 'Explore' && styles.activeOption,
+            animatedStyle,
+          ]}>
+          {activeOption === 'Explore' && (
+            <Image style={styles.homeIcon} source={explore} />
+          )}
+          {activeOption !== 'Explore' && (
+            <Text style={styles.navbarOption}>Explore</Text>
+          )}
+        </Animated.View>
       </Pressable>
-      {/*<View style={styles.activeOption}>*/}
-      {/*  <Image style={styles.homeIcon} source={mv} />*/}
-      {/*</View>*/}
-      <Text style={styles.navbarOption}>MVs</Text>
-      {/*<View style={styles.activeOption}>*/}
-      {/*  <Image style={styles.homeIcon} source={library} />*/}
-      {/*</View>*/}
-      <Text style={styles.navbarOption}>Library</Text>
+      <Pressable
+        onPress={() => {
+          handleNavigate('MVs');
+          animateButton();
+        }}
+        style={styles.pressable}>
+        <Animated.View
+          style={[
+            styles.navbarOption,
+            activeOption === 'MVs' && styles.activeOption,
+            animatedStyle,
+          ]}>
+          {activeOption === 'MVs' && (
+            <Image style={styles.homeIcon} source={mv} />
+          )}
+          {activeOption !== 'MVs' && (
+            <Text style={styles.navbarOption}>MVs</Text>
+          )}
+        </Animated.View>
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          handleNavigate('Library');
+          animateButton();
+        }}
+        style={styles.pressable}>
+        <Animated.View
+          style={[
+            styles.navbarOption,
+            activeOption === 'Library' && styles.activeOption,
+            animatedStyle,
+          ]}>
+          {activeOption === 'Library' && (
+            <Image style={styles.homeIcon} source={library} />
+          )}
+          {activeOption !== 'Library' && (
+            <Text style={styles.navbarOption}>Library</Text>
+          )}
+        </Animated.View>
+      </Pressable>
     </View>
   );
 }
+
 export default Navbar;

@@ -7,18 +7,19 @@ function Topbar() {
   const styles = {
     rhythmie: {
       width: '100%',
-      height: 100,
+      height: 90,
       fontFamily: 'JosefinSans-SemiBold',
-      backgroundColor: '#000',
+      backgroundColor: '#111',
       color: '#fff',
       fontSize: 25,
       textAlign: 'center',
-      paddingTop: 42,
+      paddingTop: 20,
       position: 'absolute',
       bottom: 0,
       zIndex: 0,
-      // borderTopLeftRadius: 35,
-      // borderTopRightRadius: 35,
+      borderTopLeftRadius: 35,
+      borderTopRightRadius: 35,
+      elevation: 4,
     },
     rhythmieText: {
       fontFamily: 'JosefinSans-SemiBold',
@@ -31,9 +32,9 @@ function Topbar() {
   return (
     <>
       <LinearGradient
-        colors={['#1d112d', '#000', '#000']}
-        start={{x: 0.0, y: 0.25}}
-        end={{x: 0.5, y: 1.0}}
+        colors={['#222', '#000', '#222']}
+        start={{x: 0.0, y: 1}}
+        end={{x: 1, y: 1}}
         locations={[0, 0.5, 1]}
         style={styles.rhythmie}>
         <Text style={styles.rhythmieText}>rhythmie</Text>

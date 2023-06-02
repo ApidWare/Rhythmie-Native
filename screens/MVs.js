@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text} from 'react-native';
 
-function Explore() {
+function MVs() {
   const styles = {
     greetText: {
       color: '#000',
@@ -10,6 +10,6 @@ function Explore() {
     },
   };
 
-  return <Text style={styles.greetText}>Explore page</Text>;
+  return <Text style={styles.greetText}>MVs page</Text>;
 }
-export default Explore;
+export default MVs;
